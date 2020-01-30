@@ -65,6 +65,7 @@ export default class GameBoard extends React.Component {
                 element.classList.add(squarePieceClass);
                 this.state.gameBoard[2][2] = xOro;
                 console.log(this.state.gameBoard);
+                
                 break;
         }
     }
