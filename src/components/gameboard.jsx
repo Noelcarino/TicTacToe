@@ -6,9 +6,9 @@ export default class GameBoard extends React.Component {
         super(props);
         this.state = {
             gameBoard: [
-                ['O','O','O'],
-                ['O','O','O'],
-                ['O','O','O'],
+                ['','',''],
+                ['','',''],
+                ['','',''],
             ],
             player1turn: true,
             player2turn: false
@@ -18,7 +18,6 @@ export default class GameBoard extends React.Component {
     handleSquarePieceChange(event){
 
         let element = document.getElementById(event.target.id);
-
         let squarePieceClass = this.handleClassSwitch(element);
 
         if (!squarePieceClass){
@@ -28,11 +27,16 @@ export default class GameBoard extends React.Component {
         switch(event.target.id){
             case 'top-left':
                 element.classList.add(squarePieceClass);
+                this.state.gameBoard[0][0] = 'x';
                 break;
             case 'top-middle':
                 element.classList.add(squarePieceClass);
+                this.state.gameBoard[0][1] = 'o';
+                console.log(this.state.gameBoard[0])
                 break;
             case 'top-right':
+                console.log(this.state.gameBoard);
+                break;
             case 'middle-left':
             case 'middle-middle':
             case 'middle-right':
@@ -47,15 +51,14 @@ export default class GameBoard extends React.Component {
 
         let classCheck = param.classList.value.split(' ');
         if (classCheck.includes('lol') || classCheck.includes('lol2')) return false;
-        let classToReturn;
 
         if (this.state.player1turn){
             this.setState({player1turn: false, player2turn: true})
-            return classToReturn = "lol";
+            return "lol";
         } 
         if (this.state.player2turn){
             this.setState({player1turn: false, player2turn: true})
-            return classToReturn = "lol2";
+            return "lol2";
         }
     }
     render(){
