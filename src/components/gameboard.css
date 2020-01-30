@@ -1,0 +1,24 @@
+.gameBoard-container {
+    display: flex;
+}
+
+.square {
+
+    width: 50%;
+    border: 1px solid black;
+    position: relative;
+    background-color: lightblue;
+    margin: auto;
+}
+
+.square:after {
+    padding-bottom: 100%;
+    content: '';
+    display: block;
+}
+
+.gameBoard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
