@@ -19,19 +19,22 @@ export default class GameBoard extends React.Component {
 
         let element = document.getElementById(event.target.id);
         let squarePieceClass = this.handleClassSwitch(element);
+        let xOro;
 
         if (!squarePieceClass){
             console.log("you cant pick this anymore");
             return ;
         }
+        if (squarePieceClass === 'lol') xOro = 'x';
+        else xOro = 'o';
         switch(event.target.id){
             case 'top-left':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[0][0] = 'x';
+                this.state.gameBoard[0][0] = xOro;
                 break;
             case 'top-middle':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[0][1] = 'o';
+                this.state.gameBoard[0][1] = xOro;
                 console.log(this.state.gameBoard[0])
                 break;
             case 'top-right':
