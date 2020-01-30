@@ -38,15 +38,33 @@ export default class GameBoard extends React.Component {
                 console.log(this.state.gameBoard[0])
                 break;
             case 'top-right':
-                console.log(this.state.gameBoard);
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[0][2] = xOro;
                 break;
             case 'middle-left':
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[1][0] = xOro;
+                break;
             case 'middle-middle':
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[1][1] = xOro;
+                break;
             case 'middle-right':
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[1][2] = xOro;
+                break;
             case 'bottom-left':
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[2][0] = xOro;
+                break;
             case 'bottom-middle':
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[2][1] = xOro;
+                break;
             case 'bottom-right':
-                console.log("so much to do");
+                element.classList.add(squarePieceClass);
+                this.state.gameBoard[2][2] = xOro;
+                console.log(this.state.gameBoard);
                 break;
         }
     }
@@ -60,7 +78,7 @@ export default class GameBoard extends React.Component {
             return "lol";
         } 
         if (this.state.player2turn){
-            this.setState({player1turn: false, player2turn: true})
+            this.setState({player1turn: true, player2turn: false})
             return "lol2";
         }
     }
