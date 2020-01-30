@@ -24,7 +24,6 @@
 
 .squarePiece {
     width: 33.3333333%;
-    /* border: 1px solid black; */
     position: relative;
     background-color: lightcoral;
     margin: auto;
@@ -32,10 +31,25 @@
 
 .squarePiece:after{
     padding-bottom: 100%;
-    content: '';
+    border: 1px solid black;
+    content: "";
     display: block;
 }
 
 .squarePiece:hover{
     opacity: 0.5;
+}
+
+
+.squarePiece:active {
+    background-color: black;
+    color: white;
+}
+
+.lol {
+    background-color: black;
+}
+
+.lol2 {
+    background-color: yellow;
 }
