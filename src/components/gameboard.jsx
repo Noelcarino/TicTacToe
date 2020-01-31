@@ -15,15 +15,21 @@ export default class GameBoard extends React.Component {
             tileTotal: 0
         }
         this.handleSquarePieceChange = this.handleSquarePieceChange.bind(this);
-        this.handleGameCondition = this.handleGameCondition.bind(this);
     }
-    handleGameReset(){
+    handleGameReset(param){
+
+        // test will pass if param is defined as draw
+        if (param === 'draw') alert('The game is a draw!');
         alert("reseting game");
+
+        // defined to reset state.gameboard
         let resetGameBoard = [
             ['','',''],
             ['','',''],
             ['','',''],
         ];
+
+        // defined array so that for loop can iterate and check if class exist
         let classArray = [
             'top-left',
             'top-middle',
@@ -35,26 +41,21 @@ export default class GameBoard extends React.Component {
             'bottom-middle',
             'bottom-right'
         ]
+        
+        // reset everything
         this.setState({gameBoard: resetGameBoard, player1turn: true, player2turn: false, tileTotal: 0});
 
+        // iterate over array to check if class exist, remove it if true
+        // if it DNE, nothing will happen.
         for(var i = 0; i < 9; i++){
             let element = document.getElementById(classArray[i]);
-            element.classList.remove('lol');
-            element.classList.remove('lol2');
+            element.classList.remove('xPieceClass');
+            element.classList.remove('oPieceClass');
         }
     }
     handleGameCondition(){
-        /*
-            Case 1: x wins
-                x must have length of 3 next to each other
-            Case 2: o wins
-            Caes 3: all tiles filled and case 1 or two 
-                default case = draw;
-        */
 
-        // check horizontal && vertical case;
-
-        // first row check;
+        // Initate Variables;
         let row1x = 0;
         let row1o = 0;
         let row2x = 0;
@@ -68,8 +69,7 @@ export default class GameBoard extends React.Component {
         let col3x = 0;
         let col3o = 0;
         let tileTotal = this.state.tileTotal;
-        tileTotal++;
-        this.setState({tileTotal: tileTotal});
+        
         for (var i = 0; i < 3; i++){
             if (this.state.gameBoard[0][i] === 'x') row1x++;
             if (this.state.gameBoard[i][0] === 'x') col1x++;
@@ -87,6 +87,49 @@ export default class GameBoard extends React.Component {
             if (this.state.gameBoard[i][2] === 'o') col3o++;
         }
 
+        /***********************************************
+            THIS SECTION HANDLES DIAGNOL WIN CONDITION
+        ************************************************/
+
+        if (this.state.gameBoard[0][0] === 'x' && this.state.gameBoard[1][1] === 'x' && this.state.gameBoard[2][2] === 'x'){
+            alert ("Player 1 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][0] === 'o' && this.state.gameBoard[1][1] === 'o' && this.state.gameBoard[2][2] === 'o'){
+            alert ("Player 2 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][2] === 'x' && this.state.gameBoard[1][1] === 'x' && this.state.gameBoard[2][0] === 'x'){
+            alert ("Player 1 is the winner");
+            row1x = row2x = row3x = 0;
+            col1x = col2x = col3x = 0;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][2] === 'o' && this.state.gameBoard[1][1] === 'o' && this.state.gameBoard[2][0] === 'o'){
+            alert ("Player 2 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+
+        /**************************************************************
+            THIS SECTION HANDLES HORIZONTAL AND VERTICAL WIN CONDITION
+        ***************************************************************/
+
         if (row1x === 3 || row2x === 3 || row3x === 3 || col1x === 3 || col2x === 3 || col3x === 3) {
             alert ("Player 1 is the winner")
             row1x = 0;
@@ -103,22 +146,36 @@ export default class GameBoard extends React.Component {
             this.handleGameReset();
             return;
         };
-        if (this.state.tileTotal === 8) this.handleGameReset();
-        console.log(this.state.tileTotal);
+
+        /***********************************************
+            THIS SECTION HANDLES DRAW CONDITION 
+        ************************************************/
+
+       tileTotal++;
+       this.setState({tileTotal: tileTotal});
+        if (this.state.tileTotal === 8) this.handleGameReset('draw');
     }
     handleSquarePieceChange(event){
 
+        // grab selected element and check id 
         let element = document.getElementById(event.target.id);
+
+        // send id information to handle class switch method to check if class exist return false if true
         let squarePieceClass = this.handleClassSwitch(element);
+
+        // initialize array to avoid array mutation
         let preGame = this.state.gameBoard;
+
+        // initialize variable
         let xOro;
 
-        if (!squarePieceClass){
-            console.log("you cant pick this anymore");
-            return ;
-        }
-        if (squarePieceClass === 'lol') xOro = 'x';
+        // if handleSwitchClass returns false, that means the piece is already assigned a piece
+        if (!squarePieceClass) return;
+        if (squarePieceClass === 'xPieceClass') xOro = 'x';
         else xOro = 'o';
+
+        // check which piece was clicked and assign class 
+        // also send game information to pregame so that handle game condition can return winner or draw;
         switch(event.target.id){
             case 'top-left':
                 element.classList.add(squarePieceClass);
@@ -166,23 +223,26 @@ export default class GameBoard extends React.Component {
                 this.setState({gameBoard: preGame});
                 break;
             default:
-                console.log("hello");
                 break;
         }
         this.handleGameCondition();
     }
     handleClassSwitch(param){
 
+        // Get all the classes of the pieces and store it in an array
         let classCheck = param.classList.value.split(' ');
-        if (classCheck.includes('lol') || classCheck.includes('lol2')) return false;
 
+        // if either of these classes are included, it means the piece has been assigned a class already;
+        if (classCheck.includes('xPieceClass') || classCheck.includes('oPieceClass')) return false;
+
+        // this test will pass if a class is not assigned to the tile yet;
         if (this.state.player1turn){
             this.setState({player1turn: false, player2turn: true})
-            return "lol";
+            return "xPieceClass";
         } 
         if (this.state.player2turn){
             this.setState({player1turn: true, player2turn: false})
-            return "lol2";
+            return "oPieceClass";
         }
     }
     render(){
