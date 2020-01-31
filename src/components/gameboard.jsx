@@ -54,7 +54,7 @@ export default class GameBoard extends React.Component {
 
         // check horizontal && vertical case;
 
-        // first row check;
+        // HORIZONTAL AND VERTICAL CHECK FOR X AND O COMBINED
         let row1x = 0;
         let row1o = 0;
         let row2x = 0;
@@ -86,7 +86,42 @@ export default class GameBoard extends React.Component {
             if (this.state.gameBoard[2][i] === 'o') row3o++;
             if (this.state.gameBoard[i][2] === 'o') col3o++;
         }
-
+        if (this.state.gameBoard[0][0] === 'x' && this.state.gameBoard[1][1] === 'x' && this.state.gameBoard[2][2] === 'x'){
+            alert ("Player 1 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][0] === 'o' && this.state.gameBoard[1][1] === 'o' && this.state.gameBoard[2][2] === 'o'){
+            alert ("Player 2 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][2] === 'x' && this.state.gameBoard[1][1] === 'x' && this.state.gameBoard[2][0] === 'x'){
+            alert ("Player 1 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
+        if (this.state.gameBoard[0][2] === 'o' && this.state.gameBoard[1][1] === 'o' && this.state.gameBoard[2][0] === 'o'){
+            alert ("Player 2 is the winner");
+            row1x = 0;
+            row2x = row1x = row3x;
+            col1x = 0;
+            col2x = col1x = col2x;
+            this.handleGameReset();
+            return;
+        }
         if (row1x === 3 || row2x === 3 || row3x === 3 || col1x === 3 || col2x === 3 || col3x === 3) {
             alert ("Player 1 is the winner")
             row1x = 0;
