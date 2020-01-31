@@ -19,6 +19,7 @@ export default class GameBoard extends React.Component {
 
         let element = document.getElementById(event.target.id);
         let squarePieceClass = this.handleClassSwitch(element);
+        let preGame = this.state.gameBoard;
         let xOro;
 
         if (!squarePieceClass){
@@ -30,44 +31,54 @@ export default class GameBoard extends React.Component {
         switch(event.target.id){
             case 'top-left':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[0][0] = xOro;
+                preGame[0][0] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'top-middle':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[0][1] = xOro;
-                console.log(this.state.gameBoard[0])
+                preGame[0][1] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'top-right':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[0][2] = xOro;
+                preGame[0][2] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'middle-left':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[1][0] = xOro;
+                preGame[1][0] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'middle-middle':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[1][1] = xOro;
+                preGame[1][1] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'middle-right':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[1][2] = xOro;
+                preGame[1][2] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'bottom-left':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[2][0] = xOro;
+                preGame[2][0] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'bottom-middle':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[2][1] = xOro;
+                preGame[2][1] = xOro;
+                this.setState({gameBoard: preGame});
                 break;
             case 'bottom-right':
                 element.classList.add(squarePieceClass);
-                this.state.gameBoard[2][2] = xOro;
-                console.log(this.state.gameBoard);
-                
+                preGame[2][2] = xOro;
+                this.setState({gameBoard: preGame});
+                break;
+            default:
+                console.log("hello");
                 break;
         }
+        console.log(this.state.gameBoard);
     }
     handleClassSwitch(param){
 
