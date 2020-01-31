@@ -11,12 +11,14 @@ export default class GameBoard extends React.Component {
                 ['','',''],
             ],
             player1turn: true,
-            player2turn: false
+            player2turn: false,
+            tileTotal: 0
         }
         this.handleSquarePieceChange = this.handleSquarePieceChange.bind(this);
         this.handleGameCondition = this.handleGameCondition.bind(this);
     }
     handleGameReset(){
+        alert("reseting game");
         let resetGameBoard = [
             ['','',''],
             ['','',''],
@@ -33,7 +35,7 @@ export default class GameBoard extends React.Component {
             'bottom-middle',
             'bottom-right'
         ]
-        this.setState({gameBoard: resetGameBoard, player1turn: true, player2turn: false});
+        this.setState({gameBoard: resetGameBoard, player1turn: true, player2turn: false, tileTotal: 0});
 
         for(var i = 0; i < 9; i++){
             let element = document.getElementById(classArray[i]);
@@ -55,6 +57,9 @@ export default class GameBoard extends React.Component {
         // first row check;
         let row1x = 0;
         let col1x = 0;
+        let tileTotal = this.state.tileTotal;
+        tileTotal++;
+        this.setState({tileTotal: tileTotal});
         for (var i = 0; i < 3; i++){
             if (this.state.gameBoard[0][i] === 'x') row1x++;
             if (this.state.gameBoard[i][0] === 'x') col1x++;
@@ -64,8 +69,12 @@ export default class GameBoard extends React.Component {
             alert ("x is the winner")
             row1x = 0;
             col1x = 0;
+            tileTotal = 0;
             this.handleGameReset();
+            return;
         };
+        if (this.state.tileTotal === 8) this.handleGameReset();
+        console.log(this.state.tileTotal);
     }
     handleSquarePieceChange(event){
 
