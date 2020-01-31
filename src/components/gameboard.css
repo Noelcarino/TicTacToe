@@ -40,16 +40,10 @@
     opacity: 0.5;
 }
 
-
-.squarePiece:active {
-    background-color: black;
-    color: white;
-}
-
-.lol {
+.xPieceClass {
     background-color: black;
 }
 
-.lol2 {
+.oPieceClass {
     background-color: yellow;
 }
