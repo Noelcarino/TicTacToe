@@ -56,17 +56,47 @@ export default class GameBoard extends React.Component {
 
         // first row check;
         let row1x = 0;
+        let row1o = 0;
+        let row2x = 0;
+        let row2o = 0;
+        let row3x = 0;
+        let row3o = 0;
         let col1x = 0;
+        let col1o = 0;
+        let col2x = 0;
+        let col2o = 0;
+        let col3x = 0;
+        let col3o = 0;
         let tileTotal = this.state.tileTotal;
         tileTotal++;
         this.setState({tileTotal: tileTotal});
         for (var i = 0; i < 3; i++){
             if (this.state.gameBoard[0][i] === 'x') row1x++;
             if (this.state.gameBoard[i][0] === 'x') col1x++;
+            if (this.state.gameBoard[0][i] === 'o') row1o++;
+            if (this.state.gameBoard[i][0] === 'o') col1o++;
+
+            if (this.state.gameBoard[1][i] === 'x') row2x++;
+            if (this.state.gameBoard[i][1] === 'x') col2x++;
+            if (this.state.gameBoard[1][i] === 'o') row2o++;
+            if (this.state.gameBoard[i][1] === 'o') col2o++;
+
+            if (this.state.gameBoard[2][i] === 'x') row3x++;
+            if (this.state.gameBoard[i][2] === 'x') col3x++;
+            if (this.state.gameBoard[2][i] === 'o') row3o++;
+            if (this.state.gameBoard[i][2] === 'o') col3o++;
         }
 
-        if (row1x === 3 || col1x === 3) {
-            alert ("x is the winner")
+        if (row1x === 3 || row2x === 3 || row3x === 3 || col1x === 3 || col2x === 3 || col3x === 3) {
+            alert ("Player 1 is the winner")
+            row1x = 0;
+            col1x = 0;
+            tileTotal = 0;
+            this.handleGameReset();
+            return;
+        };
+        if (row1o === 3 || row2o === 3 || row3o === 3 || col1o === 3 || col2o === 3 || col3o === 3) {
+            alert ("Player 2 is the winner")
             row1x = 0;
             col1x = 0;
             tileTotal = 0;
