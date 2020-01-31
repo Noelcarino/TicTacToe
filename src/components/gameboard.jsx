@@ -29,7 +29,7 @@ export default class GameBoard extends React.Component {
             ['','',''],
         ];
 
-        // defined array so that for loop can iterate and check if class exist
+        // defined array so that for loop can iterate and check if class exist 
         let classArray = [
             'top-left',
             'top-middle',
