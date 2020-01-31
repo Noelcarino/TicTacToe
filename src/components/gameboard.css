@@ -41,9 +41,13 @@
 }
 
 .xPieceClass {
-    background-color: black;
+    /* background-color: black; */
+    background-image: url('../images/tictactoex.png');
+    background-size: 100% 100%;
 }
 
 .oPieceClass {
-    background-color: yellow;
+    /* background-color: yellow; */
+    background-image: url('../images/tictactoeo.png');
+    background-size: 100% 100%;
 }
